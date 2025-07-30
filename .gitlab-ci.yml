@@ -31,9 +31,9 @@ deploy:prod:
     - echo "Applying configuration..."
     - kubectl apply -k ./kustomise/overlay/prod
     - echo "Restarting deployment..."
-    - kubectl rollout restart deployment avenirbackend-deployment -n avenir
+    - kubectl rollout restart deployment notification-deployment -n avenir
     - echo "Waiting for pods to be ready..."
-    - kubectl rollout status deployment avenirbackend-deployment -n avenir --timeout=300s
+    - kubectl rollout status deployment notification-deployment -n avenir --timeout=300s
     - echo "Pod status after deployment:"
     - kubectl get pods -n avenir
     - echo "Production deployment completed successfully!"
