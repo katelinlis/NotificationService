@@ -15,3 +15,31 @@ build:
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY}/${CI_PROJECT_PATH}-${CI_COMMIT_BRANCH}:latest"
+
+deploy:prod:
+  stage: deploy
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
+  dependencies:
+    - build
+  script:
+    - echo "Deploying to production..."
+    - kubectl config use-context kontaktru/backend:kontaktru
+    - echo "Pod status before deployment:"
+    - kubectl get pods -n avenir
+    - echo "Applying configuration..."
+    - kubectl apply -k ./kustomise/overlay/prod
+    - echo "Restarting deployment..."
+    - kubectl rollout restart deployment avenirbackend-deployment -n avenir
+    - echo "Waiting for pods to be ready..."
+    - kubectl rollout status deployment avenirbackend-deployment -n avenir --timeout=300s
+    - echo "Pod status after deployment:"
+    - kubectl get pods -n avenir
+    - echo "Production deployment completed successfully!"
+  environment:
+    name: production
+    url: https://your-production-domain.com
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "web"
