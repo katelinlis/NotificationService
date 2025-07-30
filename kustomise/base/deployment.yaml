@@ -15,8 +15,8 @@ spec:
         app: *app
     spec:
       containers:
-        - name: chatservice-deployment
-          image: registry.katelinlis.com/kontaktru/chats-main:latest
+        - name: notification-deployment
+          image: registry.katelinlis.com/kontaktru/notification-maters:latest
           env:
           - name: DATABASE_USERNAME
             valueFrom:
@@ -77,6 +77,6 @@ spec:
           imagePullPolicy: Always
 
           ports:
-            - containerPort: 3000
+            - containerPort: 4000
       imagePullSecrets:
         - name: regcred
