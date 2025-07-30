@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-deployment
+  labels:
+    app: &app notification
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      containers:
+        - name: chatservice-deployment
+          image: registry.katelinlis.com/kontaktru/chats-main:latest
+          env:
+          - name: DATABASE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: SECRET_USERNAME
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: SECRET_PASSWORD
+          - name: AUTH_JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: AUTH_JWT_SECRET     
+          - name: AUTH_REFRESH_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: AUTH_REFRESH_SECRET     
+
+          - name: AUTH_FORGOT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: AUTH_REFRESH_SECRET  
+          - name: AUTH_CONFIRM_EMAIL_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: AUTH_JWT_SECRET
+          - name: MAIL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: SECRET_EMAIL
+          - name: JWT_PUBLIC_KEY
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: JWT_PUBLIC_KEY
+          - name: JWT_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: JWT_PRIVATE_KEY
+          - name: SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: SECRET_ACCESS_KEY  
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: SECRET_REDIS
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: regcred
