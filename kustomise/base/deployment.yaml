@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: notification-deployment
-          image: registry.katelinlis.com/kontaktru/notification-maters:latest
+          image: registry.katelinlis.com/kontaktru/notification-master:latest
           env:
           - name: DATABASE_USERNAME
             valueFrom:
