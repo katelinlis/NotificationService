@@ -13,9 +13,9 @@ type Config struct {
 func Load() *Config {
 	return &Config{
 		Redis: redis.Options{
-			Addr: "localhost:6379",
+			Addr: "redis-master.default.svc.cluster.local:6379",
 		},
-		Broker:     []string{"localhost:9092"},
+		Broker:     []string{"10.8.1.1:9092"},
 		PushFCMKey: "your-fcm-key",
 	}
 }
