@@ -12,6 +12,8 @@ import (
 	"github.com/avenir/notification-service/internal/infra/postgres"
 	"github.com/avenir/notification-service/internal/infra/redis"
 	"github.com/avenir/notification-service/internal/processor"
+
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func StartApp(ctx context.Context) {
