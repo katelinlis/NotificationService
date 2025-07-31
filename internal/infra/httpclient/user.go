@@ -21,7 +21,7 @@ func NewUserClient(baseURL string, client *http.Client) *UserClient {
 	}
 }
 func (uc *UserClient) GetUser(ctx context.Context, userID int) (*model.User, error) {
-	req, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/users/%d", uc.baseURL, userID), nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/api/v1/users/internal/%d", uc.baseURL, userID), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func (uc *UserClient) GetUser(ctx context.Context, userID int) (*model.User, err
 	return &user, nil
 }
 func (uc *UserClient) GetUsers(ctx context.Context, userIDs []int) ([]model.User, error) {
-	req, err := http.NewRequestWithContext(ctx, "POST", fmt.Sprintf("%s/users/batch", uc.baseURL), nil)
+	req, err := http.NewRequestWithContext(ctx, "POST", fmt.Sprintf("%s/api/v1/users/internal/list", uc.baseURL), nil)
 	if err != nil {
 		return nil, err
 	}
