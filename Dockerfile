@@ -11,6 +11,7 @@ COPY . .
 # Собираем сервис статически (CGO отключён, чтобы можно было использовать минимальный образ)
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./main.go
 FROM scratch
+COPY --from=builder /app/scripts/migrations /scripts/migrations
 COPY --from=builder /app/main /main
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 CMD ["./main"]

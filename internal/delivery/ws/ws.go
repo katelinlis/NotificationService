@@ -55,6 +55,16 @@ func (w *WebSocketSender) Read() {
 
 }
 
+func (w *WebSocketSender) EmitMessages() {
+	for msg := range w.bufferMap {
+		client, ok := w.clientMap.Load(msg.ReceiverID)
+
+		if ok {
+			client.(*socket.Socket).Emit("message", msg)
+		}
+	}
+}
+
 func InitWS(redis redis.RedisService) *WebSocketSender {
 
 	instanceID := os.Getenv("HOSTNAME")
@@ -116,18 +126,6 @@ func InitWS(redis redis.RedisService) *WebSocketSender {
 		})
 
 	})
-
-	go func() {
-		for msg := range WSS.bufferMap {
-			client, ok := WSS.clientMap.Load(msg.ReceiverID)
-
-			if ok {
-				client.(*socket.Socket).Emit("message", msg)
-			}
-		}
-	}()
-
-	go WSS.Read()
 
 	println("rest")
 	httpServer.Listen("0.0.0.0:4000", nil)

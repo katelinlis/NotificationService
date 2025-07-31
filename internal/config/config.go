@@ -1,13 +1,25 @@
 package config
 
 import (
+	"os"
+
 	"github.com/redis/go-redis/v9"
 )
 
+type PostgresConfig struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
+	DBName   string
+}
+
 type Config struct {
-	Redis      redis.Options
-	Broker     []string
-	PushFCMKey string
+	Redis          redis.Options
+	Broker         []string
+	PushFCMKey     string
+	UserServiceURL string
+	Postgres       PostgresConfig
 }
 
 func Load() *Config {
@@ -16,6 +28,14 @@ func Load() *Config {
 			Addr: "redis-master.default.svc.cluster.local:6379",
 		},
 		Broker:     []string{"10.8.1.1:9092"},
-		PushFCMKey: "your-fcm-key",
+		PushFCMKey: os.Getenv("FCM_KEY"),
+		Postgres: PostgresConfig{
+			Host:     "10.8.1.1",
+			Port:     5432,
+			User:     "avenir",
+			Password: os.Getenv("DATABASE_PASSWORD"),
+			DBName:   "notification_service",
+		},
+		UserServiceURL: "http://avenirbackend-service.avenir.svc.cluster.local:3000",
 	}
 }
