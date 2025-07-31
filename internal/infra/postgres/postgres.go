@@ -7,8 +7,8 @@ import (
 
 	"github.com/avenir/notification-service/internal/config"
 	"github.com/avenir/notification-service/internal/domain/repository"
-	"github.com/golang-migrate/migrate"
-	"github.com/golang-migrate/migrate/database/postgres"
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/postgres"
 
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"

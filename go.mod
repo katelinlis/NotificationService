@@ -40,7 +40,6 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/golang-jwt/jwt/v5 v5.2.3
-	github.com/golang-migrate/migrate v3.5.4+incompatible
 	github.com/lib/pq v1.10.9
 	github.com/segmentio/kafka-go v0.4.48
 	github.com/zishang520/socket.io/v2 v2.5.0
