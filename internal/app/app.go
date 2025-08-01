@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/avenir/notification-service/internal/config"
@@ -77,14 +78,21 @@ func HTTPAPI(db repository.Store) {
 		}
 
 		notif, err := db.Notification().FindByUserID(context.Background(), int(claims.ClientID))
+		if err != nil {
+			println(fmt.Sprint("error get FindByUserID from db", err.Error()))
+			w.WriteHeader(http.StatusUnprocessableEntity)
+			w.Write([]byte("Internal Server Error"))
+			return
+		}
 
-		w.WriteHeader(http.StatusOK)
 		bytes, err := json.Marshal(notif)
 		if err != nil {
+			println(fmt.Sprint("error marshal  FindByUserID", err.Error()))
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Internal Server Error"))
 			return
 		}
+		w.WriteHeader(http.StatusOK)
 		w.Write(bytes)
 	})
 

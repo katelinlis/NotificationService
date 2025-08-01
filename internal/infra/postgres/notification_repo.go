@@ -39,12 +39,12 @@ func (r *notificationRepository) FindByUserID(context context.Context, id int) (
 	var notifications []model.MessageCreatedEvent
 	for rows.Next() {
 		var n model.MessageCreatedEvent
-		var createdAt time.Time
+		var createdAt sql.NullTime
 		if err := rows.Scan(&n.ID, &n.ReceiverID, &n.Content, &n.IsRead, &n.FromID, &n.Type, &createdAt); err != nil {
 			return nil, err
 		}
 
-		n.CreatedAt = createdAt.Unix()
+		n.CreatedAt = createdAt.Time.Unix()
 
 		notifications = append(notifications, n)
 	}
