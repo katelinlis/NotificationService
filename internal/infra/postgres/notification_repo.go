@@ -18,7 +18,7 @@ func NewNotificationRepository(db *sql.DB) repository.NotificationRepository {
 
 func (r *notificationRepository) Create(ctx context.Context, n *model.MessageCreatedEvent) error {
 	_, err := r.db.ExecContext(ctx, `
-		INSERT INTO notifications (user_id, content, is_read,from_id,type, created_at)
+		INSERT INTO notifications (user_id, message, is_read,from_id,type, created_at)
 		VALUES ($1, $2, false,$3,$4, $5)
 	`, n.ReceiverID, n.Content, n.FromID, n.Type, n.CreatedAt)
 	return err
@@ -26,7 +26,7 @@ func (r *notificationRepository) Create(ctx context.Context, n *model.MessageCre
 
 func (r *notificationRepository) FindByUserID(context context.Context, id int) ([]model.MessageCreatedEvent, error) {
 	rows, err := r.db.QueryContext(context, `
-		SELECT id, user_id, content, is_read,from_id,type, created_at
+		SELECT id, user_id, message, is_read,from_id,type, created_at
 		FROM notifications
 		WHERE user_id = $1
 	`, id)
