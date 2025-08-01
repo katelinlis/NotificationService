@@ -11,8 +11,8 @@ type MessageCreatedEvent struct {
 	CreatedAt  int64  `json:"created_at"`
 	FromID     int    `json:"from_id"`
 	IsRead     bool   `json:"is_read"`
-	Username   string
-	Avatar     string
+	Username   string `json:"username"`
+	Avatar     string `json:"avatar"`
 }
 
 type MyCustomClaims struct {
