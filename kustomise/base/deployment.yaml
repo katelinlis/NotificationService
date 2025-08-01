@@ -78,5 +78,6 @@ spec:
 
           ports:
             - containerPort: 4000
+            - containerPort: 3000
       imagePullSecrets:
         - name: regcred

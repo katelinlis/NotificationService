@@ -5,7 +5,9 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"errors"
+	"net/http"
 	"os"
+	"strings"
 
 	"github.com/avenir/notification-service/internal/domain/model"
 	"github.com/golang-jwt/jwt/v5"
@@ -55,4 +57,22 @@ func JWTParse(tokenString string) (MainClaims *model.MyCustomClaims, err error) 
 		return claims, nil
 	}
 	return MainClaims, errors.New("invalid token")
+}
+
+func AuthCheck(request http.Request, w http.ResponseWriter) (*model.MyCustomClaims, error) {
+	authHeader := request.Header.Get("Authorization")
+	if !strings.HasPrefix(authHeader, "Bearer ") {
+		http.Error(w, "missing bearer token", http.StatusUnauthorized)
+		return &model.MyCustomClaims{}, errors.New("missing bearer token")
+	}
+	authToken := strings.TrimPrefix(authHeader, "Bearer ")
+	claims, err := JWTParse(authToken)
+
+	if err != nil {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return &model.MyCustomClaims{}, err
+	}
+
+	return claims, nil
+
 }
