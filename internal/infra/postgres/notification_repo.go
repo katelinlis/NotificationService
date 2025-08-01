@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"database/sql"
+	"time"
 
 	"github.com/avenir/notification-service/internal/domain/model"
 	"github.com/avenir/notification-service/internal/domain/repository"
@@ -20,7 +21,7 @@ func (r *notificationRepository) Create(ctx context.Context, n *model.MessageCre
 	_, err := r.db.ExecContext(ctx, `
 		INSERT INTO notifications (user_id, message, read,from_id,type, created_at)
 		VALUES ($1, $2, false,$3,$4, $5)
-	`, n.ReceiverID, n.Content, n.FromID, n.Type, n.CreatedAt)
+	`, n.ReceiverID, n.Content, n.FromID, n.Type, time.Unix(n.CreatedAt, 0))
 	return err
 }
 
@@ -38,9 +39,13 @@ func (r *notificationRepository) FindByUserID(context context.Context, id int) (
 	var notifications []model.MessageCreatedEvent
 	for rows.Next() {
 		var n model.MessageCreatedEvent
-		if err := rows.Scan(&n.ID, &n.ReceiverID, &n.Content, &n.IsRead, &n.FromID, &n.Type, &n.CreatedAt); err != nil {
+		var createdAt time.Time
+		if err := rows.Scan(&n.ID, &n.ReceiverID, &n.Content, &n.IsRead, &n.FromID, &n.Type, &createdAt); err != nil {
 			return nil, err
 		}
+
+		n.CreatedAt = createdAt.Unix()
+
 		notifications = append(notifications, n)
 	}
 
