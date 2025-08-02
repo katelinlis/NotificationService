@@ -98,5 +98,5 @@ func HTTPAPI(db repository.Store) {
 
 	mux.Handle("/api/v1/notifications", http.StripPrefix("/api/v1/notifications/", publicMux))
 
-	http.ListenAndServe(":8080", mux)
+	http.ListenAndServe(":3000", mux)
 }
