@@ -79,11 +79,13 @@ func HTTPAPI(db repository.Store) {
 		}
 
 		type Output struct {
-			Data        model.MessageCreatedEvent `json:"data"`
-			HasNextPage bool                      `json:"HasNextPage"`
+			Data        []model.MessageCreatedEvent `json:"data"`
+			HasNextPage bool                        `json:"HasNextPage"`
 		}
 
-		bytes, err := json.Marshal(notif)
+		bytes, err := json.Marshal(Output{
+			Data: notif,
+		})
 		if err != nil {
 			println(fmt.Sprint("error marshal  FindByUserID", err.Error()))
 			w.Write([]byte("Internal Server Error"))
