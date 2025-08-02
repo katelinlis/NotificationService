@@ -10,6 +10,7 @@ import (
 	"github.com/avenir/notification-service/internal/delivery/kafka"
 	"github.com/avenir/notification-service/internal/delivery/push"
 	"github.com/avenir/notification-service/internal/delivery/ws"
+	"github.com/avenir/notification-service/internal/domain/model"
 	"github.com/avenir/notification-service/internal/domain/repository"
 	"github.com/avenir/notification-service/internal/infra/httpclient"
 	"github.com/avenir/notification-service/internal/infra/postgres"
@@ -74,6 +75,11 @@ func HTTPAPI(db repository.Store) {
 			w.WriteHeader(http.StatusUnprocessableEntity)
 			w.Write([]byte("Internal Server Error"))
 			return
+		}
+
+		type Output struct {
+			Data        model.MessageCreatedEvent `json:"data"`
+			HasNextPage bool                      `json:"HasNextPage"`
 		}
 
 		bytes, err := json.Marshal(notif)
