@@ -91,6 +91,7 @@ func HTTPAPI(db repository.Store) {
 
 			return
 		}
+		w.Header().Set("Content-Type", "application/json")
 		w.Write(bytes)
 		w.WriteHeader(http.StatusOK)
 
