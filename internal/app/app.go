@@ -72,8 +72,9 @@ func HTTPAPI(db repository.Store) {
 		notif, err := db.Notification().FindByUserID(context.Background(), int(claims.ClientID))
 		if err != nil {
 			println(fmt.Sprint("error get FindByUserID from db", err.Error()))
-			w.WriteHeader(http.StatusUnprocessableEntity)
 			w.Write([]byte("Internal Server Error"))
+			w.WriteHeader(http.StatusUnprocessableEntity)
+
 			return
 		}
 
@@ -85,12 +86,14 @@ func HTTPAPI(db repository.Store) {
 		bytes, err := json.Marshal(notif)
 		if err != nil {
 			println(fmt.Sprint("error marshal  FindByUserID", err.Error()))
-			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Internal Server Error"))
+			w.WriteHeader(http.StatusInternalServerError)
+
 			return
 		}
-		w.WriteHeader(http.StatusOK)
 		w.Write(bytes)
+		w.WriteHeader(http.StatusOK)
+
 	})
 
 	mux.Handle("/api/v1/notifications", http.StripPrefix("/api/v1/notifications/", publicMux))
