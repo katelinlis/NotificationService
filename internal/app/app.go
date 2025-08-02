@@ -80,7 +80,7 @@ func HTTPAPI(db repository.Store) {
 
 		type Output struct {
 			Data        []model.MessageCreatedEvent `json:"data"`
-			HasNextPage bool                        `json:"HasNextPage"`
+			HasNextPage bool                        `json:"hasNextPage"`
 		}
 
 		bytes, err := json.Marshal(Output{
