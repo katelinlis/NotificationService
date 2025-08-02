@@ -55,23 +55,14 @@ func StartApp(ctx context.Context) {
 func HTTPAPI(db repository.Store) {
 	mux := http.NewServeMux()
 
-	// Группа /api/internal/
-	internalMux := http.NewServeMux()
-	internalMux.HandleFunc("/users", func(w http.ResponseWriter, r *http.Request) {})
-	internalMux.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Metrics endpoint"))
-	})
-
-	// Вешаем подпрефикс
-	mux.Handle("/api/internal/", http.StripPrefix("/api/internal", internalMux))
-
 	// Группа /api/public/
 	publicMux := http.NewServeMux()
 	publicMux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Pong"))
+		w.WriteHeader(http.StatusOK)
 	})
 
-	publicMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	publicMux.HandleFunc("GET /api/v1/notifications", func(w http.ResponseWriter, r *http.Request) {
 		claims, err := utils.AuthCheck(*r, w)
 		if err != nil {
 			return
@@ -98,5 +89,5 @@ func HTTPAPI(db repository.Store) {
 
 	mux.Handle("/api/v1/notifications", http.StripPrefix("/api/v1/notifications/", publicMux))
 
-	http.ListenAndServe(":3000", mux)
+	http.ListenAndServe(":3000", publicMux)
 }
