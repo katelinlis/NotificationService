@@ -57,9 +57,11 @@ func (p *NotificationProcessor) HandleMessageCreated(data []byte) error {
 	// }
 
 	// Сохраняем уведомление в базе данных
-	if err := p.store.Notification().Create(context.Background(), &msg); err != nil {
-		log.Printf("Failed to save notification: %v", err)
-		return err
+	if msg.Type != "message" {
+		if err := p.store.Notification().Create(context.Background(), &msg); err != nil {
+			log.Printf("Failed to save notification: %v", err)
+			return err
+		}
 	}
 
 	// онлайн ли получатель
