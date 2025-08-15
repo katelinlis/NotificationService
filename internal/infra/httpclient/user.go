@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/avenir/notification-service/internal/domain/model"
+	"github.com/katelinlis/NotificationService/internal/domain/model"
 )
 
 type UserClient struct {

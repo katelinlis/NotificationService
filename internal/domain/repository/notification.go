@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/avenir/notification-service/internal/domain/model"
+	"github.com/katelinlis/NotificationService/internal/domain/model"
 )
 
 type NotificationRepository interface {

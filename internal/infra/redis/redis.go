@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/avenir/notification-service/internal/domain/model"
+	"github.com/katelinlis/NotificationService/internal/domain/model"
 	"github.com/redis/go-redis/v9"
 )
 

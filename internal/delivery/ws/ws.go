@@ -7,9 +7,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/avenir/notification-service/internal/domain/model"
-	"github.com/avenir/notification-service/internal/infra/redis"
-	"github.com/avenir/notification-service/utils"
+	"github.com/katelinlis/NotificationService/internal/domain/model"
+	"github.com/katelinlis/NotificationService/internal/infra/redis"
+	"github.com/katelinlis/NotificationService/utils"
 	"github.com/zishang520/engine.io/v2/types"
 	"github.com/zishang520/socket.io/v2/socket"
 )

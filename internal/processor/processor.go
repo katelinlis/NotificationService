@@ -5,12 +5,12 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/avenir/notification-service/internal/delivery/push"
-	"github.com/avenir/notification-service/internal/delivery/ws"
-	"github.com/avenir/notification-service/internal/domain/model"
-	"github.com/avenir/notification-service/internal/domain/repository"
-	"github.com/avenir/notification-service/internal/infra/httpclient"
-	"github.com/avenir/notification-service/internal/infra/redis"
+	"github.com/katelinlis/NotificationService/internal/delivery/push"
+	"github.com/katelinlis/NotificationService/internal/delivery/ws"
+	"github.com/katelinlis/NotificationService/internal/domain/model"
+	"github.com/katelinlis/NotificationService/internal/domain/repository"
+	"github.com/katelinlis/NotificationService/internal/infra/httpclient"
+	"github.com/katelinlis/NotificationService/internal/infra/redis"
 )
 
 type NotificationProcessor struct {

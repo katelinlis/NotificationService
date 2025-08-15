@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/avenir/notification-service/internal/config"
-	"github.com/avenir/notification-service/internal/domain/repository"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
+	"github.com/katelinlis/NotificationService/internal/config"
+	"github.com/katelinlis/NotificationService/internal/domain/repository"
 
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"

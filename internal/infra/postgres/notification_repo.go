@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/avenir/notification-service/internal/domain/model"
-	"github.com/avenir/notification-service/internal/domain/repository"
+	"github.com/katelinlis/NotificationService/internal/domain/model"
+	"github.com/katelinlis/NotificationService/internal/domain/repository"
 )
 
 type notificationRepository struct {

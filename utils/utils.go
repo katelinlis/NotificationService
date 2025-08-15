@@ -9,8 +9,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/avenir/notification-service/internal/domain/model"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/katelinlis/NotificationService/internal/domain/model"
 )
 
 func LoadPublicKey() ([]byte, error) {

@@ -1,6 +1,6 @@
 package push
 
-import "github.com/avenir/notification-service/internal/domain/model"
+import "github.com/katelinlis/NotificationService/internal/domain/model"
 
 type PushSender struct{}
 

@@ -1,4 +1,4 @@
-module github.com/avenir/notification-service
+module github.com/katelinlis/NotificationService
 
 go 1.24.1
 
