@@ -27,10 +27,10 @@ func Load() *Config {
 		Redis: redis.Options{
 			Addr: "redis-master.default.svc.cluster.local:6379",
 		},
-		Broker:     []string{"10.8.1.1:9092"},
+		Broker:     []string{"100.64.0.2:9092"},
 		PushFCMKey: os.Getenv("FCM_KEY"),
 		Postgres: PostgresConfig{
-			Host:     "10.8.1.1",
+			Host:     "100.64.0.2",
 			Port:     5432,
 			User:     "avenir",
 			Password: os.Getenv("DATABASE_PASSWORD"),
